@@ -7,8 +7,9 @@ window.onload = function()
     var delay = 100;
     var snakee;
 
-    init();
 
+    init();
+    
     function init()
     {
         var canvas = document.createElement('canvas');
@@ -25,6 +26,7 @@ window.onload = function()
     function refreshCanvas ()
     {
         ctx.clearRect(0,0,canvasWidth, canvasHeight);
+        snakee.advance();
         snakee.draw();
         setTimeout(refreshCanvas, delay);
     }
@@ -49,7 +51,17 @@ window.onload = function()
             }
             ctx.restore();
         }
+
+        this.advance = function()
+        {
+            var nextPosition = this.body[0].slice();
+            nextPosition[0] += 1;
+            this.body.unshift(nextPosition);
+            this.body.pop();
+        }
+        
     }
+
 
 
 }
